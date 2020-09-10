@@ -10,3 +10,9 @@ TODO:
 
 - ~~added show/hide animation~~
 - removed lodash
+
+### Changes
+
+#### 1.0.1
+
+- included css in build
