@@ -10,8 +10,13 @@ TODO:
 
 - ~~added show/hide animation~~
 - removed lodash
+- add a linter
 
 ### Changes
+
+#### 1.0.5
+
+- removing some lodash dependancies
 
 #### 1.0.4
 

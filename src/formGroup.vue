@@ -39,35 +39,35 @@
     </div>
   </div>
 </template>
-<script>
-import { get as objGet, isNil, isFunction } from "lodash";
+<script lang="ts">
+import { getProp, isFunction, isNil } from "./utils/common";
 import { slugifyFormID } from "./utils/schema";
-import formMixin from "./formMixin.js";
 import fieldComponents from "./utils/fieldsLoader.js";
+import formMixin from "./formMixin.js";
 
 export default {
   name: "form-group",
-  components: fieldComponents,
+  components: { fieldComponents },
   mixins: [formMixin],
   props: {
     vfg: {
       type: Object,
-      required: true
+      required: true,
     },
     model: Object,
     options: {
-      type: Object
+      type: Object,
     },
     field: {
       type: Object,
-      required: true
+      required: true,
     },
     errors: {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   methods: {
     // Should field type have a label?
@@ -91,7 +91,7 @@ export default {
       }
     },
     getFieldID(schema) {
-      const idPrefix = objGet(this.options, "fieldIdPrefix", "");
+      const idPrefix = getProp(this.options, "fieldIdPrefix", "");
       return slugifyFormID(schema, idPrefix);
     },
     // Get type of field 'field-xxx'. It'll be the name of HTML element
@@ -100,7 +100,7 @@ export default {
     },
     // Get type of button, default to 'button'
     getButtonType(btn) {
-      return objGet(btn, "type", "button");
+      return getProp(btn, "type", "button");
     },
     // Child field executed validation
     onFieldValidated(res, errors, field) {
@@ -120,7 +120,9 @@ export default {
       return field.hint;
     },
     fieldErrors(field) {
-      return this.errors.filter(e => e.field === field).map(item => item.error);
+      return this.errors
+        .filter((e) => e.field === field)
+        .map((item) => item.error);
     },
     onModelUpdated(newVal, schema) {
       this.$emit("model-updated", newVal, schema);
@@ -132,8 +134,8 @@ export default {
       if (this.$refs.child) {
         return this.$refs.child.clearValidationErrors();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

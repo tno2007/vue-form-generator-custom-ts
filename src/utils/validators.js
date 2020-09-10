@@ -1,14 +1,10 @@
-import {
-  defaults,
-  isNil,
-  isNumber,
-  isInteger,
-  isString,
-  isArray,
-  isFunction,
-  isFinite
-} from "lodash";
-import fecha from "fecha";
+import { defaults } from "lodash/defaults";
+import { isFinite } from "lodash/isFinite";
+import { isInteger } from "lodash/isInteger";
+import { isNumber } from "lodash/isNumber";
+import { format } from "fecha";
+
+import { isArray, isNil, isString } from "./common";
 
 let resources = {
   fieldIsRequired: "This field is required!",
@@ -40,7 +36,7 @@ let resources = {
 
   invalidTextContainNumber:
     "Invalid text! Cannot contains numbers or special characters",
-  invalidTextContainSpec: "Invalid text! Cannot contains special characters"
+  invalidTextContainSpec: "Invalid text! Cannot contains special characters",
 };
 
 function checkEmpty(value, required, messages = resources) {
@@ -168,14 +164,14 @@ const validators = {
     if (!isNil(field.min)) {
       let min = new Date(field.min);
       if (m.valueOf() < min.valueOf()) {
-        err.push(msg(messages.dateIsEarly, fecha.format(m), fecha.format(min)));
+        err.push(msg(messages.dateIsEarly, format(m), format(min)));
       }
     }
 
     if (!isNil(field.max)) {
       let max = new Date(field.max);
       if (m.valueOf() > max.valueOf()) {
-        err.push(msg(messages.dateIsLate, fecha.format(m), fecha.format(max)));
+        err.push(msg(messages.dateIsLate, format(m), format(max)));
       }
     }
 
@@ -269,13 +265,13 @@ const validators = {
     if (!re.test(value)) {
       return [msg(messages.invalidTextContainSpec)];
     }
-  }
+  },
 };
 
-Object.keys(validators).forEach(name => {
+Object.keys(validators).forEach((name) => {
   const fn = validators[name];
-  if (isFunction(fn)) {
-    fn.locale = customMessages => (value, field, model) =>
+  if (typeof fn === "function") {
+    fn.locale = (customMessages) => (value, field, model) =>
       fn(value, field, model, defaults(customMessages, resources));
   }
 });

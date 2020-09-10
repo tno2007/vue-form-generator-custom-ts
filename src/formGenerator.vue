@@ -49,10 +49,10 @@ div.vue-form-generator(v-if='schema != null')
 </template>
 
 
-<script>
-import { get as objGet, forEach, isFunction, isNil, isArray } from "lodash";
-import formMixin from "./formMixin.js";
+<script lang="ts">
+import { getProp, isArray, isFunction, isNil, forEach } from "./utils/common";
 import formGroup from "./formGroup.vue";
+import formMixin from "./formMixin.js";
 
 export default {
   name: "formGenerator",
@@ -110,7 +110,7 @@ export default {
     fields() {
       let res = [];
       if (this.schema && this.schema.fields) {
-        forEach(this.schema.fields, field => {
+        this.schema.fields.forEach(field => {
           if (!this.multiple || field.multi === true) res.push(field);
         });
       }
@@ -120,7 +120,7 @@ export default {
     groups() {
       let res = [];
       if (this.schema && this.schema.groups) {
-        forEach(this.schema.groups.slice(0), group => {
+        this.schema.groups.slice(0).forEach(group => {
           res.push(group);
         });
       }
@@ -198,7 +198,7 @@ export default {
 
       if (!res && errors && errors.length > 0) {
         // Add errors with this field
-        forEach(errors, err => {
+        errors.forEach(err => {
           this.errors.push({
             field: field.schema,
             error: err
@@ -217,7 +217,7 @@ export default {
     // Validating the model properties
     validate(isAsync = null) {
       if (isAsync === null) {
-        isAsync = objGet(this.options, "validateAsync", false);
+        isAsync = getProp(this.options, "validateAsync", false);
       }
       this.clearValidationErrors();
 
@@ -231,7 +231,7 @@ export default {
       var groups = this.$refs["tg-group"];
       groups.forEach(g => {
         let parent = g.$children;
-        forEach(parent, child => {
+        parent.forEach(child => {
           if (isFunction(child.validate)) {
             fields.push(child.$refs.child); // keep track of validated children
             results.push(child.validate(true));
@@ -250,14 +250,21 @@ export default {
 
       let handleErrors = errors => {
         let formErrors = [];
-        forEach(errors, (err, i) => {
+        errors.forEach((err, i) => {
           if (isArray(err) && err.length > 0) {
-            forEach(err, error => {
+            err.forEach(error => {
               formErrors.push({
                 field: fields[i].schema,
                 error: error
               });
             });
+
+            /*forEach(err, error => {
+              formErrors.push({
+                field: fields[i].schema,
+                error: error
+              });
+            });*/
           }
         });
         this.errors = formErrors;
@@ -280,7 +287,8 @@ export default {
       //let parent = this.$children;
       let parent = this.$children.$children;
 
-      forEach(parent, child => {
+      if (!isArray(parent)) return;
+      parent.forEach(child => {
         child.clearValidationErrors();
       });
     }

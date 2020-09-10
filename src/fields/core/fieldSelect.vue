@@ -9,8 +9,11 @@
 			option(v-if="!item.group", :value="getItemValue(item)") {{ getItemName(item) }}
 </template>
 
-<script>
-import { isObject, isNil, find } from "lodash";
+<script lang="ts">
+import { find } from "lodash/find";
+import { isNil } from "../../utils/common";
+import isObject from "lodash/isObject";
+
 import abstractField from "../abstractField";
 
 export default {
