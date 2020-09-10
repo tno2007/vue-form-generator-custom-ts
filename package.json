@@ -20,7 +20,8 @@
     "dist/vfg.css",
     "dist/vfg-core.js",
     "dist/vfg-core.css",
-    "src"
+    "src",
+	"dist"
   ],
   "license": "MIT",
   "devDependencies": {
