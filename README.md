@@ -13,6 +13,10 @@ TODO:
 
 ### Changes
 
+#### 1.0.4
+
+- add vue dependancy
+
 #### 1.0.3
 
 - used package.json files property to explicitly add dist assets
