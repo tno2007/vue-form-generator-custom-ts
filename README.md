@@ -13,6 +13,10 @@ TODO:
 
 ### Changes
 
+#### 1.0.2
+
+- upped version to see if 'yarn add' adds missing added files
+
 #### 1.0.1
 
 - included css in build
