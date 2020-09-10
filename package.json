@@ -1,6 +1,6 @@
 {
   "name": "vue-form-generator-custom-ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A fork of vue-form-generator, created to extend custom functionality",
   "main": "dist/index.js",
   "scripts": {

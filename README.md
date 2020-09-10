@@ -13,6 +13,10 @@ TODO:
 
 ### Changes
 
+#### 1.0.3
+
+- used package.json files property to explicitly add dist assets
+
 #### 1.0.2
 
 - upped version to see if 'yarn add' adds missing added files
