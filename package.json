@@ -1,0 +1,41 @@
+{
+  "name": "vue-form-generator-custom-ts",
+  "version": "1.0.0",
+  "description": "A fork of vue-form-generator, created to extend custom functionality",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "parcel -d ./dist/ ./src/index.ts",
+    "build": "parcel build -d ./dist/ ./src/index.ts"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "form",
+    "generator",
+    "schema",
+    "json"
+  ],
+  "files": [
+    "dist/vfg.js",
+    "dist/vfg.css",
+    "dist/vfg-core.js",
+    "dist/vfg-core.css",
+    "src"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@vue/babel-preset-jsx": "^1.1.2",
+    "@vue/component-compiler-utils": "^3.2.0",
+    "core-js": "^3.6.4",
+    "cssnano": "^4.1.10",
+    "pug": "^3.0.0",
+    "sass": "^1.26.10",
+    "typescript": "^4.0.2",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "dependencies": {
+    "fecha": "^4.2.0",
+    "lodash": "^4.17.15"
+  }
+}
